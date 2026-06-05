@@ -7,7 +7,6 @@ import {
   ChevronRight,
   Instagram,
   Menu,
-  MessageCircle,
   QrCode,
   ScanLine,
   ShieldCheck,
@@ -19,6 +18,13 @@ import { type ReactNode, useEffect, useRef, useState } from 'react';
 import type { Key } from 'react';
 import logoMarkImage from './assets/logo/logo-full.jpg';
 import logoWordmarkImage from './assets/logo/logo-icon.png';
+import clientLogo1 from './assets/clientes/1.png';
+import clientLogo2 from './assets/clientes/2.png';
+import clientLogo3 from './assets/clientes/3.png';
+import clientLogo4 from './assets/clientes/4.png';
+import clientLogo5 from './assets/clientes/5.png';
+import clientLogo6 from './assets/clientes/6.png';
+import clientLogo7 from './assets/clientes/7.png';
 import chaveiroNfcImage from './assets/produtos/CHAVEIRO NFC.png';
 import displayCompactImage from './assets/produtos/DISPLAY COMPACT.png';
 import displayPixImage from './assets/produtos/DISPLAY PIX.png';
@@ -98,6 +104,16 @@ const benefits = [
   'Mais cliques nos canais que importam',
   'Menos fricção entre interesse e ação',
   'Presença física com linguagem digital premium',
+];
+
+const clientLogos = [
+  { name: 'Cliente 01', logo: clientLogo1 },
+  { name: 'Cliente 02', logo: clientLogo2 },
+  { name: 'Cliente 03', logo: clientLogo3 },
+  { name: 'Cliente 04', logo: clientLogo4 },
+  { name: 'Cliente 05', logo: clientLogo5 },
+  { name: 'Cliente 06', logo: clientLogo6 },
+  { name: 'Cliente 07', logo: clientLogo7 },
 ];
 
 function FadeIn({
@@ -208,7 +224,7 @@ function HeroVisual() {
   const activeProduct = products[activeIndex];
 
   return (
-    <div className="relative mx-auto w-full max-w-[35rem]">
+    <div className="relative h-full w-full">
       <div className="absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-[#3550ff]/24 blur-3xl" />
 
       <motion.div
@@ -216,7 +232,7 @@ function HeroVisual() {
         initial={{ opacity: 0, y: 18, scale: 0.985 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.55 }}
-        className="relative overflow-hidden rounded-[2.7rem] border border-white/8 bg-[#050505] px-6 pb-0 pt-6 text-white shadow-[0_35px_90px_rgba(0,0,0,0.24)] sm:px-8 sm:pt-8"
+        className="relative flex h-full flex-col overflow-hidden rounded-[2.7rem] border border-white/8 bg-[#050505] px-6 pb-0 pt-6 text-white shadow-[0_35px_90px_rgba(0,0,0,0.24)] sm:px-8 sm:pt-8 lg:rounded-[2.5rem] lg:rounded-l-[2.7rem]"
       >
         <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
         <div className="pointer-events-none absolute right-[-10%] top-[12%] h-72 w-72 rounded-full bg-[#3550ff]/30 blur-3xl" />
@@ -242,12 +258,12 @@ function HeroVisual() {
           </p>
         </div>
 
-        <div className="relative mx-[-1.5rem] mt-10 flex justify-center sm:mx-[-2rem] sm:mt-12">
+        <div className="relative mx-[-1.5rem] mt-10 flex min-h-[18rem] flex-1 items-end justify-center overflow-hidden rounded-t-[2rem] sm:mx-[-2rem] sm:mt-12 sm:min-h-[22rem]">
           <div className="pointer-events-none absolute inset-x-[14%] bottom-[7%] h-20 rounded-full bg-[radial-gradient(circle,rgba(53,80,255,0.3),transparent_70%)] blur-2xl" />
           <img
             src={activeProduct.image}
             alt={activeProduct.title}
-            className="relative block h-auto max-h-[32rem] w-full rounded-[2rem] object-cover object-center"
+            className="relative block h-full w-full object-cover object-center"
           />
         </div>
       </motion.div>
@@ -377,7 +393,7 @@ export default function App() {
       <main className="pb-10">
         <section className="px-4 pt-6 sm:px-6 lg:px-8 lg:pt-8">
           <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-white/60 bg-[#fbfaf7] px-6 py-8 shadow-[0_30px_80px_rgba(24,28,42,0.08)] sm:px-8 lg:px-14 lg:py-12">
-            <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-start">
+            <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-stretch">
               <FadeIn>
                 <h1 className="max-w-4xl font-display text-5xl leading-[0.92] tracking-[-0.06em] text-slate-950 sm:text-6xl lg:text-[5.4rem]">
                   Transforme cada ponto físico em uma experiência digital elegante.
@@ -404,7 +420,7 @@ export default function App() {
                 </div>
               </FadeIn>
 
-              <FadeIn delay={0.1} className="lg:-mt-3">
+              <FadeIn delay={0.1} className="lg:-mr-14 lg:-mt-12 lg:-mb-12 lg:self-stretch">
                 <HeroVisual />
               </FadeIn>
             </div>
@@ -505,51 +521,42 @@ export default function App() {
           </div>
         </section>
 
-        <section id="contato" className="px-4 pb-6 pt-10 sm:px-6 lg:px-8 lg:pt-14">
-          <div className="mx-auto max-w-7xl rounded-[2.6rem] border border-white/60 bg-[#fbfaf7] p-8 shadow-[0_30px_80px_rgba(24,28,42,0.08)] sm:p-10 lg:p-14">
-            <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-end">
-              <FadeIn>
-                <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-600">
-                  <MessageCircle size={14} className="text-[#2f49ff]" />
-                  Fale com a DAMP3D
+        <section id="clientes" className="px-4 pb-6 pt-10 sm:px-6 lg:px-8 lg:pt-14">
+          <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.6rem] border border-white/8 bg-[#050505] px-6 py-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.18)] sm:px-8 sm:py-9 lg:px-10">
+            <FadeIn>
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+                <div className="max-w-2xl">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#7f92ff]">Quem já passou por aqui</div>
+                  <h2 className="mt-4 font-display text-3xl leading-tight tracking-[-0.04em] text-white sm:text-[2.5rem]">
+                    Um espaço para destacar as marcas que confiam na DAMP3D.
+                  </h2>
                 </div>
-                <h2 className="mt-7 max-w-3xl font-display text-4xl leading-tight tracking-[-0.05em] text-slate-950 sm:text-5xl">
-                  Se o produto precisa parecer premium, o ponto de contato também precisa.
-                </h2>
-                <p className="mt-6 max-w-2xl text-base leading-8 text-slate-500 sm:text-lg">
-                  Podemos estruturar a peça ideal, definir o destino digital e desenhar uma apresentação mais forte para o seu cliente interagir sem dúvida e sem atrito.
+                <p className="max-w-xl text-sm leading-7 text-white/58 sm:text-base">
+                  Os logos deslizam continuamente da direita para a esquerda. Assim que você me mandar os arquivos, eu substituo esses placeholders.
                 </p>
-              </FadeIn>
+              </div>
 
-              <FadeIn delay={0.1} className="grid gap-4">
-                <a href="#" className="rounded-[1.6rem] border border-slate-200 bg-white p-5 transition-transform hover:-translate-y-0.5">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <div className="text-sm font-semibold text-slate-950">Projeto personalizado</div>
-                      <div className="mt-2 text-sm leading-6 text-slate-500">
-                        Definimos formato, destino digital e melhor uso para o seu ambiente.
-                      </div>
+              <div className="client-logo-marquee mt-8">
+                <div className="client-logo-marquee__track">
+                  {[...clientLogos, ...clientLogos].map((item, index) => (
+                    <div
+                      key={`${item.name}-${index}`}
+                      className="flex h-24 min-w-[14rem] items-center justify-center rounded-[1.6rem] border border-white/10 bg-transparent p-3 text-center text-sm font-semibold uppercase tracking-[0.22em] text-white/72 sm:h-28 sm:min-w-[16rem] sm:p-4"
+                    >
+                      {item.logo ? (
+                        <img src={item.logo} alt={item.name} className="h-full w-full object-contain opacity-95" />
+                      ) : (
+                        item.name
+                      )}
                     </div>
-                    <ArrowRight size={18} className="mt-1 text-slate-400" />
-                  </div>
-                </a>
-                <a href="#" className="rounded-[1.6rem] border border-slate-200 bg-white p-5 transition-transform hover:-translate-y-0.5">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <div className="text-sm font-semibold text-slate-950">Implementação guiada</div>
-                      <div className="mt-2 text-sm leading-6 text-slate-500">
-                        Entregamos a experiência pronta para uso, com orientação clara para sua equipe.
-                      </div>
-                    </div>
-                    <ArrowRight size={18} className="mt-1 text-slate-400" />
-                  </div>
-                </a>
-              </FadeIn>
-            </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
           </div>
         </section>
 
-        <section className="px-4 pb-6 pt-4 sm:px-6 lg:px-8">
+        <section id="contato" className="px-4 pb-6 pt-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <FadeIn>
               <a

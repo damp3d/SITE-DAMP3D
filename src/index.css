@@ -49,3 +49,28 @@
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+@layer components {
+  .client-logo-marquee {
+    position: relative;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .client-logo-marquee__track {
+    display: flex;
+    width: max-content;
+    gap: 1.25rem;
+    animation: client-logo-marquee 24s linear infinite;
+  }
+}
+
+@keyframes client-logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 0.625rem));
+  }
+}
