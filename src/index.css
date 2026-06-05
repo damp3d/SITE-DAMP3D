@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#ebe9e4] text-slate-900 antialiased;
+    background-image:
+      radial-gradient(circle at top right, rgba(63, 87, 255, 0.12), transparent 24%),
+      radial-gradient(circle at 12% 0%, rgba(11, 20, 51, 0.08), transparent 18%),
+      linear-gradient(180deg, #ebe9e4 0%, #ebe9e4 100%);
+  }
+
+  ::selection {
+    background: rgba(63, 87, 255, 0.2);
+    color: #0f172a;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.28;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(circle at center, black, transparent 82%);
+  }
+
+  a, button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
