@@ -1,4 +1,4 @@
-import { motion, useScroll } from 'motion/react';
+import { AnimatePresence, motion, useScroll } from 'motion/react';
 import {
   ArrowRight,
   BadgeCheck,
@@ -25,6 +25,7 @@ import clientLogo4 from './assets/clientes/4.png';
 import clientLogo5 from './assets/clientes/5.png';
 import clientLogo6 from './assets/clientes/6.png';
 import clientLogo7 from './assets/clientes/7.png';
+import verifiedBadgeImage from './assets/clientes/selo-de-verificacao.png';
 import chaveiroNfcImage from './assets/produtos/CHAVEIRO NFC.png';
 import displayCompactImage from './assets/produtos/DISPLAY COMPACT.png';
 import displayPixImage from './assets/produtos/DISPLAY PIX.png';
@@ -116,6 +117,8 @@ const clientLogos = [
   { name: 'Cliente 07', logo: clientLogo7 },
 ];
 
+const orderLink = 'https://web.damp3d.com.br/pedido';
+
 function FadeIn({
   children,
   delay = 0,
@@ -170,10 +173,12 @@ function Header() {
             </a>
           ))}
           <a
-            href="#contato"
+            href={orderLink}
+            target="_blank"
+            rel="noreferrer"
             className="rounded-full bg-[#2f49ff] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(47,73,255,0.28)] transition-transform hover:-translate-y-0.5"
           >
-            Solicitar projeto
+            Fazer meu pedido
           </a>
         </nav>
 
@@ -227,13 +232,7 @@ function HeroVisual() {
     <div className="relative h-full w-full">
       <div className="absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-[#3550ff]/24 blur-3xl" />
 
-      <motion.div
-        key={activeProduct.title}
-        initial={{ opacity: 0, y: 18, scale: 0.985 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.55 }}
-        className="relative flex h-full flex-col overflow-hidden rounded-[2.7rem] border border-white/8 bg-[#050505] px-6 pb-0 pt-6 text-white shadow-[0_35px_90px_rgba(0,0,0,0.24)] sm:px-8 sm:pt-8 lg:rounded-[2.5rem] lg:rounded-l-[2.7rem]"
-      >
+      <div className="relative flex h-full flex-col overflow-hidden rounded-[2.7rem] border border-white/8 bg-[#050505] px-6 pb-0 pt-6 text-white shadow-[0_35px_90px_rgba(0,0,0,0.24)] sm:px-8 sm:pt-8 lg:rounded-[2.5rem] lg:rounded-l-[2.7rem]">
         <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
         <div className="pointer-events-none absolute right-[-10%] top-[12%] h-72 w-72 rounded-full bg-[#3550ff]/30 blur-3xl" />
         <div className="pointer-events-none absolute left-[10%] top-[20%] h-24 w-24 rounded-full border border-white/8" />
@@ -247,26 +246,46 @@ function HeroVisual() {
             </div>
           </div>
 
-          <div className="mt-8 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#7f92ff]">
-            {activeProduct.subtitle}
+          <div className="relative mt-8 min-h-[13.5rem] sm:min-h-[12rem]">
+            <AnimatePresence initial={false} mode="wait">
+              <motion.div
+                key={activeProduct.title}
+                initial={{ opacity: 0, x: 42, filter: 'blur(8px)' }}
+                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, x: -42, filter: 'blur(8px)' }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0"
+              >
+                <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#7f92ff]">
+                  {activeProduct.subtitle}
+                </div>
+                <h3 className="mt-3 text-3xl font-semibold tracking-[-0.05em] text-white sm:text-[2.5rem]">
+                  {activeProduct.title}
+                </h3>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-white/68 sm:text-[1.02rem]">
+                  {activeProduct.description}
+                </p>
+              </motion.div>
+            </AnimatePresence>
           </div>
-          <h3 className="mt-3 text-3xl font-semibold tracking-[-0.05em] text-white sm:text-[2.5rem]">
-            {activeProduct.title}
-          </h3>
-          <p className="mt-4 max-w-xl text-sm leading-7 text-white/68 sm:text-[1.02rem]">
-            {activeProduct.description}
-          </p>
         </div>
 
-        <div className="relative mx-[-1.5rem] mt-10 flex min-h-[18rem] flex-1 items-end justify-center overflow-hidden rounded-t-[2rem] sm:mx-[-2rem] sm:mt-12 sm:min-h-[22rem]">
+        <div className="relative mx-[-1.5rem] mt-auto overflow-hidden rounded-t-[2rem] sm:mx-[-2rem]">
           <div className="pointer-events-none absolute inset-x-[14%] bottom-[7%] h-20 rounded-full bg-[radial-gradient(circle,rgba(53,80,255,0.3),transparent_70%)] blur-2xl" />
-          <img
-            src={activeProduct.image}
-            alt={activeProduct.title}
-            className="relative block h-full w-full object-cover object-center"
-          />
+          <AnimatePresence initial={false} mode="wait">
+            <motion.img
+              key={activeProduct.image}
+              src={activeProduct.image}
+              alt={activeProduct.title}
+              initial={{ opacity: 0, x: 56, scale: 1.03, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, x: -56, scale: 0.985, filter: 'blur(10px)' }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              className="relative block w-full rounded-t-[2rem] object-cover object-center"
+            />
+          </AnimatePresence>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -392,9 +411,9 @@ export default function App() {
 
       <main className="pb-10">
         <section className="px-4 pt-6 sm:px-6 lg:px-8 lg:pt-8">
-          <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-white/60 bg-[#fbfaf7] px-6 py-8 shadow-[0_30px_80px_rgba(24,28,42,0.08)] sm:px-8 lg:px-14 lg:py-12">
+          <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] border border-white/60 bg-[#fbfaf7] px-0 pb-0 pt-8 shadow-[0_30px_80px_rgba(24,28,42,0.08)] sm:pt-8 lg:px-14 lg:py-12">
             <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-stretch">
-              <FadeIn>
+              <FadeIn className="px-6 pb-8 sm:px-8 lg:px-0 lg:pb-0">
                 <h1 className="max-w-4xl font-display text-5xl leading-[0.92] tracking-[-0.06em] text-slate-950 sm:text-6xl lg:text-[5.4rem]">
                   Transforme cada ponto físico em uma experiência digital elegante.
                 </h1>
@@ -405,10 +424,12 @@ export default function App() {
 
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                   <a
-                    href="#contato"
+                    href={orderLink}
+                    target="_blank"
+                    rel="noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-[#2f49ff] px-7 py-4 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(47,73,255,0.28)] transition-transform hover:-translate-y-0.5"
                   >
-                    Solicitar projeto
+                    Fazer meu pedido
                     <ArrowRight size={16} />
                   </a>
                   <a
@@ -522,9 +543,17 @@ export default function App() {
         </section>
 
         <section id="clientes" className="px-4 pb-6 pt-10 sm:px-6 lg:px-8 lg:pt-14">
-          <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.6rem] border border-white/8 bg-[#050505] px-6 py-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.18)] sm:px-8 sm:py-9 lg:px-10">
+          <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.6rem] border border-white/8 bg-[#050505] px-6 py-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.18)] sm:px-8 sm:py-9 lg:px-10">
+            <div className="pointer-events-none absolute right-8 top-7 hidden lg:block">
+              <img
+                src={verifiedBadgeImage}
+                alt=""
+                className="h-20 w-20 object-contain"
+              />
+            </div>
+
             <FadeIn>
-              <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+              <div className="hidden flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
                 <div className="max-w-2xl">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#7f92ff]">Quem já passou por aqui</div>
                   <h2 className="mt-4 font-display text-3xl leading-tight tracking-[-0.04em] text-white sm:text-[2.5rem]">
@@ -534,6 +563,13 @@ export default function App() {
                 <p className="max-w-xl text-sm leading-7 text-white/58 sm:text-base">
                   Os logos deslizam continuamente da direita para a esquerda. Assim que você me mandar os arquivos, eu substituo esses placeholders.
                 </p>
+              </div>
+
+              <div className="max-w-3xl">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#7f92ff]">Marcas que ja inovaram com a DAMP3D</div>
+                <h2 className="mt-4 font-display text-3xl leading-tight tracking-[-0.04em] text-white sm:text-[2.5rem]">
+                  Algumas empresas que ja elevaram sua experiencia fisica com a DAMP3D.
+                </h2>
               </div>
 
               <div className="client-logo-marquee mt-8">
@@ -586,7 +622,7 @@ export default function App() {
         <div className="mx-auto max-w-7xl rounded-[2.2rem] border border-white/60 bg-[#f4f2ee] px-6 py-8 sm:px-8 lg:px-10">
           <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
             <div>
-              <div className="flex items-center gap-4">
+              <div className="hidden items-center gap-4">
                 <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-[1.3rem] border border-black/5 bg-white shadow-[0_12px_28px_rgba(24,28,42,0.06)]">
                   <img src={logoMarkImage} alt="Símbolo DAMP3D" className="h-full w-full object-cover" />
                 </div>
@@ -598,13 +634,25 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <div className="hidden mt-6 flex-col gap-3 sm:flex-row">
                 <div className="flex flex-1 items-center rounded-full border border-slate-200 bg-white px-4 py-3 text-sm text-slate-400">
                   atendimento@damp3d.com.br
                 </div>
-                <a href="#contato" className="inline-flex items-center justify-center rounded-full bg-[#2f49ff] px-6 py-3 text-sm font-semibold text-white">
-                  Iniciar contato
+                <a
+                  href={orderLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-full bg-[#2f49ff] px-6 py-3 text-sm font-semibold text-white"
+                >
+                  Fazer meu pedido
                 </a>
+              </div>
+
+              <div>
+                <img src={logoWordmarkImage} alt="DAMP3D" className="h-9 w-auto object-contain" />
+                <div className="mt-2 max-w-sm text-sm leading-6 text-slate-500">
+                  Solucoes de interatividade que conectam o objeto fisico ao destino digital com mais valor percebido.
+                </div>
               </div>
             </div>
 
@@ -629,13 +677,27 @@ export default function App() {
                 <div className="font-semibold text-slate-950">Social</div>
                 <div className="mt-4 flex items-center gap-3">
                   <a
-                    href="#"
+                    href="https://www.instagram.com/damp3d"
                     aria-label="Instagram"
+                    target="_blank"
+                    rel="noreferrer"
                     className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition-colors hover:text-slate-950"
                   >
                     <Instagram size={18} />
                   </a>
                 </div>
+                <a
+                  href="https://wa.me/5512991033533"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="WhatsApp"
+                  className="mt-4 inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-[#25D366] transition-transform hover:-translate-y-0.5"
+                >
+                  <svg viewBox="0 0 32 32" className="h-[18px] w-[18px]" aria-hidden="true" fill="currentColor">
+                    <path d="M19.11 17.19c-.28-.14-1.64-.81-1.89-.9-.25-.09-.43-.14-.61.14-.18.28-.71.9-.87 1.08-.16.19-.32.21-.6.07-.28-.14-1.17-.43-2.24-1.38-.83-.74-1.4-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.48.14-.16.18-.28.28-.46.09-.19.05-.35-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.44-.46-.61-.47h-.52c-.19 0-.48.07-.73.35-.25.28-.97.95-.97 2.32 0 1.37.99 2.69 1.13 2.88.14.19 1.95 2.98 4.73 4.18.66.28 1.18.45 1.58.58.66.21 1.27.18 1.75.11.53-.08 1.64-.67 1.87-1.31.23-.65.23-1.2.16-1.31-.07-.12-.25-.19-.53-.33Z" />
+                    <path d="M16.02 3.2c-6.94 0-12.57 5.63-12.57 12.57 0 2.21.58 4.38 1.68 6.28L3.2 28.8l6.92-1.82a12.77 12.77 0 0 0 5.9 1.5h.01c6.94 0 12.57-5.63 12.57-12.57S22.96 3.2 16.02 3.2Zm0 22.98h-.01a10.44 10.44 0 0 1-5.33-1.46l-.38-.22-4.11 1.08 1.1-4-.25-.41a10.38 10.38 0 0 1-1.6-5.54c0-5.73 4.66-10.39 10.39-10.39 2.77 0 5.37 1.08 7.33 3.04a10.3 10.3 0 0 1 3.04 7.34c0 5.73-4.67 10.39-10.4 10.39Z" />
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
