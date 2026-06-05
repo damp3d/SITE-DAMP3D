@@ -339,20 +339,20 @@ function ProductCarousel() {
               key={`${product.title}-${index}`}
               className="w-full shrink-0 overflow-hidden rounded-[2rem] border border-white/70 bg-[#fbfaf7] shadow-[0_24px_70px_rgba(24,28,42,0.07)] lg:basis-[calc((100%-3rem)/3)]"
             >
-              <div className={`relative h-72 overflow-hidden bg-gradient-to-br ${product.theme}`}>
+              <div className="relative h-44 overflow-hidden sm:h-56 lg:h-72">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="block h-full w-full object-cover drop-shadow-[0_22px_40px_rgba(14,20,48,0.24)]"
+                  className="block h-full w-full object-cover"
                 />
               </div>
-              <div className="p-6">
+              <div className="p-5 sm:p-6">
                 <div className="inline-flex rounded-full bg-[#edf1ff] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#2440d8]">
                   {product.size}
                 </div>
-                <h3 className="mt-4 text-[1.7rem] font-semibold leading-tight text-slate-950">{product.title}</h3>
+                <h3 className="mt-4 text-[1.55rem] font-semibold leading-tight text-slate-950 sm:text-[1.7rem]">{product.title}</h3>
                 <div className="mt-2 text-sm font-medium text-[#2f49ff]">{product.subtitle}</div>
-                <p className="mt-4 text-sm leading-7 text-slate-600">{product.description}</p>
+                <p className="mt-4 text-sm leading-6 text-slate-600 sm:leading-7">{product.description}</p>
               </div>
             </div>
           ))}
